@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id
+  name      String?
+  username  String?
+  email     String?
+  phone     String?
+  website   String?
+  address   Address? @relation(fields: [addressId], references: [id])
+  addressId String?
+  Posts     Post[]
+  Album     Album[]
+  ToDo      ToDo[]
+  company   Company? @relation(fields: [companyId], references: [id])
+  companyId String?
+}
+
+model Company {
+  id          String  @id
+  name        String?
+  catchPhrase String?
+  bs          String?
+  User        User[]
+}
+
+model Address {
+  id      String  @id
+  street  String?
+  suite   String?
+  city    String?
+  zipcode String?
+  geo     Geo?    @relation(fields: [geoId], references: [id])
+  geoId   String?
+  User    User[]
+}
+
+model Geo {
+  id      String    @id
+  lat     String?
+  lng     String?
+  Address Address[]
+}
+
+model Post {
+  id        Int       @id
+  title     String?
+  body      String?
+  published Boolean?
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    Int?
+  Comment   Comment[]
+}
+
+model Comment {
+  id     Int     @id
+  name   String?
+  email  String?
+  body   String?
+  post   Post?   @relation(fields: [postId], references: [id])
+  postId Int?
+}
+
+model Album {
+  id    Int     @id
+  title String?
+  User  User    @relation(fields: [userId], references: [id])
+  Photo Photo[]
+
+  userId Int
+}
+
+model Photo {
+  id           Int     @id
+  title        String?
+  url          String?
+  thumbnailUrl String?
+  Album        Album?  @relation(fields: [albumId], references: [id])
+  albumId      Int?
+}
+
+model ToDo {
+  id        Int      @id
+  title     String?
+  completed Boolean?
+  User      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
