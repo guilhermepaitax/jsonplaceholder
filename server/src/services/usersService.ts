@@ -1,4 +1,3 @@
-import AppError from "../errors/AppError";
 import api from "./api";
 
 interface IUser {
@@ -27,12 +26,8 @@ interface IUser {
 
 class UserService {
   public async getUsers(): Promise<IUser[]> {
-    try {
-      const response = await api.get("/users");
-      return response.data;
-    } catch (error) {
-      throw new AppError("Error on load users from api.");
-    }
+    const response = await api.get("/users");
+    return response.data;
   }
 }
 

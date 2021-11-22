@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn server/src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage && make-coverage-badge --output-path badges/coverage.svg"
   },
   "prisma": {
     "schema": "server/src/prisma/schema.prisma"

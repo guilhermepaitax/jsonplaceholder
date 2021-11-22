@@ -1,4 +1,3 @@
-import AppError from "../errors/AppError";
 import api from "./api";
 
 interface IToDo {
@@ -10,12 +9,8 @@ interface IToDo {
 
 class ToDoService {
   public async getAll(): Promise<IToDo[]> {
-    try {
-      const response = await api.get("/todos");
-      return response.data;
-    } catch (error) {
-      throw new AppError("Error on get todos data.");
-    }
+    const response = await api.get("/todos");
+    return response.data;
   }
 }
 

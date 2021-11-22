@@ -1,4 +1,3 @@
-import AppError from "../errors/AppError";
 import api from "./api";
 
 interface IAlbum {
@@ -17,21 +16,13 @@ interface IPhotos {
 
 class AlbumsService {
   public async getAlbums(): Promise<IAlbum[]> {
-    try {
-      const response = await api.get("/albums");
-      return response.data;
-    } catch (error) {
-      throw new AppError("Error on load albums from api.");
-    }
+    const response = await api.get("/albums");
+    return response.data;
   }
 
   public async getPhotos(): Promise<IPhotos[]> {
-    try {
-      const response = await api.get("/photos");
-      return response.data;
-    } catch (error) {
-      throw new AppError("Error on load photos from api.");
-    }
+    const response = await api.get("/photos");
+    return response.data;
   }
 }
 
